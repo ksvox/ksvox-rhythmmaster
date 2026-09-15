@@ -719,7 +719,7 @@ export default function Home() {
           </div>
 
           <div
-            className="bg-white rounded-lg p-4 pb-10 text-slate-900 border-2 border-slate-300 shadow-inner min-h-[320px] flex justify-center items-start overflow-x-auto"
+            className="bg-white rounded-lg p-4 pb-10 text-slate-900 border-2 border-slate-300 shadow-inner min-h-[560px] flex justify-center items-start overflow-x-auto overflow-y-visible"
             id="staffContainer"
           >
             <p className="text-slate-400 text-sm text-center">③を押して生成してください</p>
