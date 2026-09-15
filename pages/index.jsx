@@ -673,9 +673,9 @@ export default function Home() {
                 defaultValue="80"
                 className="w-full bg-slate-900 border-2 border-cyan-500/60 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-cyan-400 text-sm font-semibold"
               >
-                <option value="70">BPM 70 (ゆっくり)</option>
-                <option value="80">BPM 80 (標準)</option>
-                <option value="90">BPM 90 (アップテンポ)</option>
+                <option value="70">BPM 70 </option>
+                <option value="80">BPM 80 </option>
+                <option value="90">BPM 90 </option>
               </select>
             </div>
           </div>
