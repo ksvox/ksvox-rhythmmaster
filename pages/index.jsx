@@ -8,15 +8,9 @@ export default function Home() {
     // ほぼそのまま移植（要素IDのみ新デザインに合わせて変更）。
     // ==============================
 
+    const STAFF_WIDTH = 260;
     const NOTATION_SCALE = 1.8;
     const STAFF_SEP = 20;
-
-    // 楽譜表示エリアの実際の幅に合わせて、はみ出さないstaffwidthを都度計算する
-    function getDynamicStaffWidth() {
-      const container = document.getElementById('staffContainer');
-      const containerWidth = container ? container.clientWidth : 300;
-      return Math.max((containerWidth - 16) / NOTATION_SCALE, 150);
-    }
 
     let audioCtx;
     let synthControl;
@@ -440,7 +434,7 @@ export default function Home() {
           const displayAbc = buildAbc(rawAbcData, bpm, false);
           staff.innerHTML = '';
           window.ABCJS.renderAbc('staffContainer', displayAbc, {
-            staffwidth: getDynamicStaffWidth(),
+            staffwidth: STAFF_WIDTH,
             scale: NOTATION_SCALE,
             format: { staffsep: STAFF_SEP },
           });
@@ -473,7 +467,7 @@ export default function Home() {
       const bpm = parseInt(document.getElementById('tempoSelect').value, 10);
       const practiceAbc = buildAbc(rawAbcData, bpm, true);
       const visualObj = window.ABCJS.renderAbc('staffContainer', practiceAbc, {
-        staffwidth: getDynamicStaffWidth(),
+        staffwidth: STAFF_WIDTH,
         scale: NOTATION_SCALE,
         format: { staffsep: STAFF_SEP },
       });
@@ -540,7 +534,7 @@ export default function Home() {
       const exampleAbc = buildAbc(rawAbcData, bpm, false);
 
       const visualObj = window.ABCJS.renderAbc('staffContainer', exampleAbc, {
-        staffwidth: getDynamicStaffWidth(),
+        staffwidth: STAFF_WIDTH,
         scale: NOTATION_SCALE,
         format: { staffsep: STAFF_SEP },
       });
@@ -724,7 +718,7 @@ export default function Home() {
           </div>
 
           <div
-            className="bg-white rounded-lg p-4 text-slate-900 border-2 border-slate-300 shadow-inner min-h-[320px] flex flex-col justify-center overflow-x-auto"
+            className="bg-white rounded-lg pt-4 pr-4 pb-10 pl-8 text-slate-900 border-2 border-slate-300 shadow-inner min-h-[320px] overflow-x-auto"
             id="staffContainer"
           >
             <p className="text-slate-400 text-sm text-center">③を押して生成してください</p>
