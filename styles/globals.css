@@ -1,0 +1,65 @@
+body {
+  font-family: 'DotGothic16', sans-serif;
+  background-color: #0d0f17;
+  color: #f3f4f6;
+  background-image: radial-gradient(#1f293d 1px, transparent 0);
+  background-size: 24px 24px;
+}
+
+.pixel-font {
+  font-family: 'Press Start 2P', 'DotGothic16', monospace;
+}
+
+/* レトロゲームウインドウ風フレーム */
+.retro-box {
+  background-color: #121826;
+  border: 4px solid #3b82f6;
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.4), inset 0 0 10px rgba(0, 0, 0, 0.8);
+  position: relative;
+}
+
+.retro-box-gold {
+  background-color: #0f141c;
+  border: 4px solid #f59e0b;
+  box-shadow: 0 0 12px rgba(245, 158, 11, 0.4);
+}
+
+.retro-cmd-window {
+  background-color: #000000;
+  border: 4px solid #ffffff;
+  outline: 2px solid #000000;
+  box-shadow: inset 0 0 0 2px #000000, 0 6px 0 rgba(0, 0, 0, 0.5);
+}
+
+/* アーケードタップボタン */
+.arcade-btn {
+  background: linear-gradient(180deg, #ef4444 0%, #b91c1c 100%);
+  border: 4px solid #fca5a5;
+  box-shadow: 0 10px 0 #7f1d1d, 0 15px 20px rgba(0, 0, 0, 0.6);
+  transition: all 0.05s ease;
+}
+.arcade-btn:active,
+.arcade-btn.pressed {
+  transform: translateY(8px);
+  box-shadow: 0 2px 0 #7f1d1d, 0 5px 10px rgba(0, 0, 0, 0.6);
+  background: linear-gradient(180deg, #dc2626 0%, #991b1b 100%);
+}
+
+/* 点滅アニメーション */
+@keyframes pixel-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+.blink {
+  animation: pixel-blink 1s infinite;
+}
+
+/* ABCJS描画エリア: 警告メッセージは非表示 */
+.abcjs-css-warning {
+  display: none !important;
+}
