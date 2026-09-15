@@ -331,7 +331,14 @@ export default function Home() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ bpm, level }),
       });
-      if (!response.ok) throw new Error('server-error');
+      if (!response.ok) {
+        let detail = '';
+        try {
+          const errBody = await response.json();
+          detail = errBody?.debugDetail || errBody?.error || '';
+        } catch (e) {}
+        throw new Error(detail ? `server-error: ${detail}` : 'server-error');
+      }
       const data = await response.json();
       if (!(data.data && data.data.outputs && data.data.outputs.rhythm_data)) {
         throw new Error('no-data');
@@ -444,7 +451,8 @@ export default function Home() {
           setAiMessage(`レベル${level} (BPM ${bpm}) の新しいリズムを生成したよ！「正解を聞く」で確認して「練習開始」に挑戦しよう！`);
           return;
         } catch (e) {
-          staff.innerHTML = '<p class="text-rose-400 text-sm">通信エラーが発生しました。もう一度お試しください。</p>';
+          const detail = e && e.message ? String(e.message) : '';
+          staff.innerHTML = `<p class="text-rose-400 text-sm">通信エラーが発生しました。もう一度お試しください。</p><p class="text-rose-300 text-[10px] mt-2 break-words">[詳細] ${detail}</p>`;
           return;
         }
       }
@@ -673,9 +681,9 @@ export default function Home() {
                 defaultValue="80"
                 className="w-full bg-slate-900 border-2 border-cyan-500/60 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-cyan-400 text-sm font-semibold"
               >
-                <option value="70">BPM 70 </option>
-                <option value="80">BPM 80 </option>
-                <option value="90">BPM 90 </option>
+                <option value="70">BPM 70 (ゆっくり)</option>
+                <option value="80">BPM 80 (標準)</option>
+                <option value="90">BPM 90 (アップテンポ)</option>
               </select>
             </div>
           </div>
