@@ -638,7 +638,7 @@ export default function Home() {
           </div>
           <ul className="list-disc list-inside space-y-1 text-xs sm:text-sm text-slate-300">
             <li>ご利用の環境によっては正しく動作しないことがありますがご了承ください。</li>
-            <li>「リズムの生成」時にAIを使用します。一度リズム生成すれば、同じリズムを繰り返し練習できます。</li>
+            <li>「リズムの生成」時にAIを使用します。一度リズム生成すれば、同じリズムを繰り返し練習できます。連続でのリズム生成はお控えください。</li>
             <li>エラーが出た場合は、画面をリロード(またはキャッシュクリア)して再度お試しください。</li>
           </ul>
         </div>
@@ -670,12 +670,12 @@ export default function Home() {
               <label className="block text-xs text-cyan-400 font-bold mb-1">② テンポ (BPM)</label>
               <select
                 id="tempoSelect"
-                defaultValue="90"
+                defaultValue="80"
                 className="w-full bg-slate-900 border-2 border-cyan-500/60 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-cyan-400 text-sm font-semibold"
               >
                 <option value="70">BPM 70 (ゆっくり)</option>
-                <option value="90">BPM 90 (標準)</option>
-                <option value="110">BPM 110 (アップテンポ)</option>
+                <option value="80">BPM 80 (標準)</option>
+                <option value="90">BPM 90 (アップテンポ)</option>
               </select>
             </div>
           </div>
@@ -725,7 +725,7 @@ export default function Home() {
         <div className="bg-slate-900 border-4 border-slate-700 rounded-xl p-4 shadow-xl space-y-2">
           <div className="flex items-center justify-end text-xs text-slate-300 px-1">
             <span id="tempoBadge" className="text-cyan-400 font-mono font-bold">
-              BPM: 90
+              BPM: 80
             </span>
           </div>
 
