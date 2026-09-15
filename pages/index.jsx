@@ -83,6 +83,7 @@ export default function Home() {
       let body = lines.slice(kIndex + 1);
 
       header.push('Q: 1/4=' + bpm);
+      header.push('%%printtempo 0');
       header.push('%%MIDI channel 10');
       header.push('%%MIDI transpose -21');
       if (isMuted) {
@@ -718,7 +719,7 @@ export default function Home() {
           </div>
 
           <div
-            className="bg-white rounded-lg pt-4 pr-4 pb-10 pl-8 text-slate-900 border-2 border-slate-300 shadow-inner min-h-[320px] overflow-x-auto"
+            className="bg-white rounded-lg p-4 pb-10 text-slate-900 border-2 border-slate-300 shadow-inner min-h-[320px] flex justify-center items-start overflow-x-auto"
             id="staffContainer"
           >
             <p className="text-slate-400 text-sm text-center">③を押して生成してください</p>
