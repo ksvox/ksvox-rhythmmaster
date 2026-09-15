@@ -437,6 +437,8 @@ export default function Home() {
           window.ABCJS.renderAbc('staffContainer', displayAbc, {
             staffwidth: STAFF_WIDTH,
             scale: NOTATION_SCALE,
+            paddingtop: 10,
+            paddingbottom: 40,
             format: { staffsep: STAFF_SEP },
           });
           setAiMessage(`レベル${level} (BPM ${bpm}) の新しいリズムを生成したよ！「正解を聞く」で確認して「練習開始」に挑戦しよう！`);
@@ -470,6 +472,8 @@ export default function Home() {
       const visualObj = window.ABCJS.renderAbc('staffContainer', practiceAbc, {
         staffwidth: STAFF_WIDTH,
         scale: NOTATION_SCALE,
+        paddingtop: 10,
+        paddingbottom: 40,
         format: { staffsep: STAFF_SEP },
       });
 
@@ -537,6 +541,8 @@ export default function Home() {
       const visualObj = window.ABCJS.renderAbc('staffContainer', exampleAbc, {
         staffwidth: STAFF_WIDTH,
         scale: NOTATION_SCALE,
+        paddingtop: 10,
+        paddingbottom: 40,
         format: { staffsep: STAFF_SEP },
       });
       stopAllPlayback();
