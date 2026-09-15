@@ -425,6 +425,7 @@ export default function Home() {
       const level = document.getElementById('levelSelect').value;
       document.getElementById('tempoBadge').textContent = `BPM: ${bpm}`;
       const maxAttempts = 3;
+      let lastErrorDetail = '';
 
       for (let attempt = 1; attempt <= maxAttempts; attempt++) {
         try {
@@ -451,14 +452,21 @@ export default function Home() {
           setAiMessage(`レベル${level} (BPM ${bpm}) の新しいリズムを生成したよ！「正解を聞く」で確認して「練習開始」に挑戦しよう！`);
           return;
         } catch (e) {
-          const detail = e && e.message ? String(e.message) : '';
-          staff.innerHTML = `<p class="text-rose-400 text-sm">通信エラーが発生しました。もう一度お試しください。</p><p class="text-rose-300 text-[10px] mt-2 break-words">[詳細] ${detail}</p>`;
-          return;
+          lastErrorDetail = e && e.message ? String(e.message) : '';
+          // サーバー混雑など一時的なエラーの可能性があるので、すぐ諦めず
+          // 少し待ってから残りの試行回数まではリトライする
+          if (attempt < maxAttempts) {
+            staff.innerHTML = `<p class="text-slate-400 text-sm">サーバーが混み合っているようです。少し待って再試行します…（${attempt}/${maxAttempts}回目）</p>`;
+            await new Promise((resolve) => setTimeout(resolve, 2000));
+            continue;
+          }
         }
       }
 
-      staff.innerHTML =
-        '<p class="text-rose-400 text-sm">リズムの生成に手間取っています。お手数ですが、もう一度「③ リズムを生成」を押してください。</p>';
+      staff.innerHTML = `<p class="text-rose-400 text-sm">リズムの生成に手間取っています。お手数ですが、もう一度「③ リズムを生成」を押してください。</p>${
+        lastErrorDetail ? `<p class="text-rose-300 text-[10px] mt-2 break-words">[詳細] ${lastErrorDetail}</p>` : ''
+      }`;
+      return;
     }
     generateBtn?.addEventListener('click', onGenerateClick);
 
