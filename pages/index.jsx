@@ -82,8 +82,8 @@ export default function Home() {
       let header = lines.slice(0, kIndex + 1);
       let body = lines.slice(kIndex + 1);
 
-      header.push('Q: 1/4=' + bpm);
-      header.push('%%printtempo 0');
+      // 【重要】Q:(テンポ)行はあえて追加しない。再生速度はJS側のqpmオプションだけで
+      // 指定することで、そもそも「♩=90」の表示自体が発生しないようにする。
       header.push('%%MIDI channel 10');
       header.push('%%MIDI transpose -21');
       if (isMuted) {
@@ -540,7 +540,12 @@ export default function Home() {
         format: { staffsep: STAFF_SEP },
       });
       stopAllPlayback();
-      await synthControl.setTune(visualObj[0], true, { audioContext: getAudioCtx() });
+      await synthControl.setTune(visualObj[0], true, {
+        audioContext: getAudioCtx(),
+        qpm: parseInt(bpm, 10),
+        defaultQpm: parseInt(bpm, 10),
+        options: { qpm: parseInt(bpm, 10), defaultQpm: parseInt(bpm, 10) },
+      });
 
       const intervalMs = (60 / parseInt(bpm, 10)) * 1000;
       let count = 0;
