@@ -463,7 +463,7 @@ export default function Home() {
         }
       }
 
-      staff.innerHTML = `<p class="text-rose-400 text-sm">リズムの生成に手間取っています。お手数ですが、もう一度「③ リズムを生成」を押してください。</p>${
+      staff.innerHTML = `<p class="text-rose-400 text-sm">リズムの生成に手間取っています。お手数ですが、しばくしてから再度「③ リズムを生成」を押してください。</p>${
         lastErrorDetail ? `<p class="text-rose-300 text-[10px] mt-2 break-words">[詳細] ${lastErrorDetail}</p>` : ''
       }`;
       return;
@@ -689,9 +689,9 @@ export default function Home() {
                 defaultValue="80"
                 className="w-full bg-slate-900 border-2 border-cyan-500/60 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-cyan-400 text-sm font-semibold"
               >
-                <option value="70">BPM 70 (ゆっくり)</option>
-                <option value="80">BPM 80 (標準)</option>
-                <option value="90">BPM 90 (アップテンポ)</option>
+                <option value="70">BPM 70 </option>
+                <option value="80">BPM 80 </option>
+                <option value="90">BPM 90 </option>
               </select>
             </div>
           </div>
