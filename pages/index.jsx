@@ -666,15 +666,15 @@ export default function Home() {
                 className="w-full bg-slate-900 border-2 border-yellow-500/60 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-yellow-400 text-sm font-semibold"
               >
                 <option value="1">レベル1 (基本4分音符)</option>
-                <option value="2">レベル2 (8分音符混じり)</option>
-                <option value="3">レベル3 (休符ミックス)</option>
-                <option value="4">レベル4 (シンコペーション)</option>
-                <option value="5">レベル5 (16分音符初級)</option>
-                <option value="6">レベル6 (16分音符バリエーション)</option>
-                <option value="7">レベル7 (複雑な裏拍)</option>
-                <option value="8">レベル8 (高速16分音符)</option>
-                <option value="9">レベル9 (変拍子・連符風)</option>
-                <option value="10">レベル10 (マスタークラス)</option>
+                <option value="2">レベル2 (休符ミックス)</option>
+                <option value="3">レベル3 (2分音符ミックス)</option>
+                <option value="4">レベル4 (16分音符導入)</option>
+                <option value="5">レベル5 (シンコペーションあり)</option>
+                <option value="6">レベル6 (裏打ちリズム)</option>
+                <option value="7">レベル7 (16分音符多め)</option>
+                <option value="8">レベル8 (全パターン総合)</option>
+                <option value="9">レベル9 (シンコペーション強化)</option>
+                <option value="10">レベル10 (最上級・高密度)</option>
               </select>
             </div>
 
