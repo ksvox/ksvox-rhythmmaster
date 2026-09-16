@@ -456,14 +456,15 @@ export default function Home() {
           // サーバー混雑など一時的なエラーの可能性があるので、すぐ諦めず
           // 少し待ってから残りの試行回数まではリトライする
           if (attempt < maxAttempts) {
-            staff.innerHTML = `<p class="text-slate-400 text-sm">サーバーが混み合っているようです。少し待って再試行します…（${attempt}/${maxAttempts}回目）</p>`;
-            await new Promise((resolve) => setTimeout(resolve, 2000));
+            const waitSec = attempt + 1; // 1回目失敗後は2秒、2回目失敗後は3秒...と段階的に延ばす
+            staff.innerHTML = `<p class="text-slate-400 text-sm">サーバーが混み合っているようです。${waitSec}秒待って再試行します…（${attempt}/${maxAttempts}回目）</p>`;
+            await new Promise((resolve) => setTimeout(resolve, waitSec * 1000));
             continue;
           }
         }
       }
 
-      staff.innerHTML = `<p class="text-rose-400 text-sm">リズムの生成に手間取っています。お手数ですが、しばくしてから再度「③ リズムを生成」を押してください。</p>${
+      staff.innerHTML = `<p class="text-rose-400 text-sm">リズムの生成に手間取っています。お手数ですが、もう一度「③ リズムを生成」を押してください。</p>${
         lastErrorDetail ? `<p class="text-rose-300 text-[10px] mt-2 break-words">[詳細] ${lastErrorDetail}</p>` : ''
       }`;
       return;
@@ -564,9 +565,7 @@ export default function Home() {
       stopAllPlayback();
       await synthControl.setTune(visualObj[0], true, {
         audioContext: getAudioCtx(),
-        qpm: parseInt(bpm, 10),
         defaultQpm: parseInt(bpm, 10),
-        options: { qpm: parseInt(bpm, 10), defaultQpm: parseInt(bpm, 10) },
       });
 
       const intervalMs = (60 / parseInt(bpm, 10)) * 1000;
@@ -654,8 +653,8 @@ export default function Home() {
           </div>
           <ul className="list-disc list-inside space-y-1 text-xs sm:text-sm text-slate-300">
             <li>ご利用の環境によっては正しく動作しないことがありますがご了承ください。</li>
-            <li>「リズムの生成」時にAIを使用します。一度リズム生成すれば、同じリズムを繰り返し練習できます。連続でのリズム生成はお控えください。</li>
-            <li>エラーが出た場合は、画面をリロード(またはキャッシュクリア)して再度お試しください。</li>
+            <li>「リズムの生成」時にAIを使用します。一度リズムを生成すれば、同じリズムを繰り返し練習できます。テンポだけを変えることも可能です。連続でのリズム生成はお控えください⚠</li>
+            <li>429/503エラーが出た場合は、しばらく時間を空けてから再度お試しください。その他エラーが出たときは、画面の再読込やキャッシュクリアをお試しください。</li>
           </ul>
         </div>
 
@@ -689,9 +688,9 @@ export default function Home() {
                 defaultValue="80"
                 className="w-full bg-slate-900 border-2 border-cyan-500/60 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-cyan-400 text-sm font-semibold"
               >
-                <option value="70">BPM 70 </option>
-                <option value="80">BPM 80 </option>
-                <option value="90">BPM 90 </option>
+                <option value="70">BPM 70 (ゆっくり)</option>
+                <option value="80">BPM 80 (標準)</option>
+                <option value="90">BPM 90 (アップテンポ)</option>
               </select>
             </div>
           </div>
