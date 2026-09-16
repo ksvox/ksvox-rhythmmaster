@@ -621,9 +621,9 @@ export default function Home() {
 
       <div className="w-full max-w-2xl mx-auto px-4 pt-6 space-y-6 pb-12">
         {/* 1. タイトルエリア */}
-        <header className="flex items-center justify-between bg-slate-900 border-2 border-slate-700 p-4 rounded-xl shadow-lg">
+        <header className="flex items-center justify-between bg-black border-2 border-slate-700 p-4 rounded-xl shadow-lg">
           <div className="flex items-center space-x-3">
-            <div className="w-12 h-12 bg-gradient-to-tr from-indigo-600 to-pink-500 rounded-lg flex items-center justify-center border-2 border-white shadow-md p-1 overflow-hidden">
+            <div className="w-12 h-12 flex items-center justify-center flex-shrink-0">
               <img src="/logo.png" alt="リズムAIマスター Logo" className="w-full h-full object-contain" />
             </div>
             <div>
