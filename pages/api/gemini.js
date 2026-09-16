@@ -94,8 +94,8 @@ z2 CC C2 Cz|
 CC/2C/2 C2 z2 CC|]
 
 # 厳格な制約事項（絶対死守）
-1. Markdownのコードブロック（\`\`\`abc 〜 \`\`\`）のみを出力すること。それ以外の文字（挨拶、説明など）は一切出力してはならない。
-2. 出力結果が崩れる原因になるため、コードブロック全体の直前・直後に余計なスペースを入れないこと。
+1. 出力は、指定されたJSONスキーマの"abc"フィールドの中に、ABC記法のテキストのみを文字列として格納すること。挨拶や説明、Markdownのコードブロック記号（\`\`\`abc など）はabcフィールドの中に含めないこと。
+2. 同じBPM・同じLEVELで生成を依頼された場合でも、前回と全く同じパターンを繰り返さず、毎回できるだけ異なるバリエーションのリズムを新しく作り出すこと。ただしパーツのルール(A・B・C)や難易度別ロジックは厳守すること。
 3. ユーザーから指定された1つの難易度（レベル）のみを生成すること。全レベルのパターンを連続して出力するなどの暴走は絶対に禁止すること。`;
 }
 
@@ -114,6 +114,15 @@ async function callGemini({ apiKey, model, prompt }) {
         ],
         generationConfig: {
           temperature: 0.8,
+          thinkingConfig: { thinkingLevel: 'MEDIUM' },
+          responseMimeType: 'application/json',
+          responseSchema: {
+            type: 'OBJECT',
+            properties: {
+              abc: { type: 'STRING' },
+            },
+            required: ['abc'],
+          },
         },
       }),
     }
@@ -126,7 +135,14 @@ async function callGemini({ apiKey, model, prompt }) {
 
   const data = await response.json();
   const text = data?.candidates?.[0]?.content?.parts?.map((p) => p.text || '').join('') || '';
-  return text;
+
+  try {
+    const parsed = JSON.parse(text);
+    return parsed.abc || '';
+  } catch (e) {
+    // 万一JSONで返らなかった場合の保険として、従来通りのMarkdownコードブロック抽出も試す
+    return text;
+  }
 }
 
 export default async function handler(req, res) {
@@ -148,7 +164,7 @@ export default async function handler(req, res) {
     return;
   }
 
-  const model = 'gemini-3.5-flash';
+  const model = 'gemini-3.5-flash-lite';
 
   try {
     const prompt = buildPrompt(bpm, level);
