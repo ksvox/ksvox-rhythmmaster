@@ -82,8 +82,8 @@ export default function Home() {
       let header = lines.slice(0, kIndex + 1);
       let body = lines.slice(kIndex + 1);
 
-      // 【重要】Q:(テンポ)行はあえて追加しない。再生速度はJS側のqpmオプションだけで
-      // 指定することで、そもそも「♩=90」の表示自体が発生しないようにする。
+      // 表示より再生速度の正確さを優先し、Q:行を復活させる(元の実績ある方式に戻す)
+      header.push('Q: 1/4=' + bpm);
       header.push('%%MIDI channel 10');
       header.push('%%MIDI transpose -21');
       if (isMuted) {
@@ -563,10 +563,7 @@ export default function Home() {
         format: { staffsep: STAFF_SEP },
       });
       stopAllPlayback();
-      await synthControl.setTune(visualObj[0], true, {
-        audioContext: getAudioCtx(),
-        defaultQpm: parseInt(bpm, 10),
-      });
+      await synthControl.setTune(visualObj[0], true, { audioContext: getAudioCtx() });
 
       const intervalMs = (60 / parseInt(bpm, 10)) * 1000;
       let count = 0;
@@ -688,9 +685,9 @@ export default function Home() {
                 defaultValue="80"
                 className="w-full bg-slate-900 border-2 border-cyan-500/60 rounded-lg px-3 py-2 text-white focus:outline-none focus:border-cyan-400 text-sm font-semibold"
               >
-                <option value="70">BPM 70 (ゆっくり)</option>
-                <option value="80">BPM 80 (標準)</option>
-                <option value="90">BPM 90 (アップテンポ)</option>
+                <option value="70">BPM 70</option>
+                <option value="80">BPM 80</option>
+                <option value="90">BPM 90</option>
               </select>
             </div>
           </div>
