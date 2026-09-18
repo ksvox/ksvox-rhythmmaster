@@ -731,6 +731,9 @@ export default function Home() {
               </svg>
             </button>
           </div>
+          <p className="text-center text-[11px] text-slate-400">
+            【注意】スマホのマナーモード(消音)を解除してから練習開始を押してください。
+          </p>
         </div>
 
         {/* 4. 楽譜表示エリア */}
